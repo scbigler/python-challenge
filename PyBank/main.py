@@ -7,11 +7,13 @@ import csv
 csvpath = os.path.join("Resources", "budget_data.csv")
 # print (csvpath)
 
+
 month_counter = 0
 net_total = 0
 negative = 0
 positive = 0
 avg_list = []
+
 
 with open(csvpath) as csvfile:
     csvreader = csv.reader(csvfile, delimiter=",")
@@ -31,10 +33,31 @@ with open(csvpath) as csvfile:
             if amount > positive:
                 positive = amount
                 
-print ("Highest Value "+ str(positive))
-print("Lowest Value " + str(negative))
-print("Number of months " + str(month_counter))
-print("Net Total Amount " + str(net_total))
-print("Average " + str(net_total/month_counter))
+HV = "Highest Value " + str(positive)
+LV = "Lowest Value " + str(negative)
+months = "Number of months " + str(month_counter)
+NTA = "Net Total Amount " + str(net_total)
+average = "Average " + str(net_total/month_counter)
+FA = "Financial Analysis"
+seperator = "-------------------"
+
+print(FA)
+print(seperator)
+print (NTA)
+print(months)
+print(average)
+print(HV)
+print(LV)
+
+
+
                 
-        
+out_list = [[FA], [seperator], [NTA], [months], [average], [HV], [LV]]     
+
+# Send results to output csv file
+outputfile = os.path.join("Analysis/budget_analysis.csv")
+
+with open(outputfile, "w") as csvoutfile:
+     csvwriter = csv.writer(csvoutfile, delimiter=',')
+     for i in range(len(out_list)):
+        csvwriter.writerow(out_list[i])
